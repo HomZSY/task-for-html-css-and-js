@@ -1,0 +1,119 @@
+html,
+body,
+div,
+ul,li {
+	margin: 0;
+	padding: 0;
+}
+
+ul {
+	list-style: none;
+}
+.container {
+	background: #ECECEC;
+}
+
+.container .nav {
+	width: 100%;
+	height: 80px;
+	background: #000;
+}
+.container .nav .logo {
+	margin-left: 30px;
+	float: left;
+	width: 80px;
+	height: 80px;
+}
+.container .nav ul {
+	line-height: 80px;
+}
+.container .nav ul li {
+	float: right;
+	padding: 0 10px;
+}
+.container .nav ul li a {
+	color: #fff;
+	text-decoration: none;
+}
+
+.container .article {
+	margin: 20px;
+	padding: 20px;
+	line-height: 30px;
+	border: solid 1px #AFADAD;
+	box-shadow: 1px 2px #9A9999;
+	background: #fff;
+}
+.container .article3 dl dd {
+	width: 400px;
+	height: 350px;
+	padding: 20px;
+	text-align: center;
+	border: solid 1px #000;
+}
+.container .article3 dl dd img {
+	width: 350px;
+	height: 300px;
+	padding-top: 10px;
+}
+.container .article4 .content table{
+	width: 100%;
+	border: solid 1px #666;
+}
+.container .article4 .content table th{
+	border: solid 1px #eee;
+	background: #CCDEFF;
+}
+.container .article4 .content table td{
+	padding: 2px 10px;
+	border: solid 1px #eee;
+}
+.container .article4 .content table .sum {
+	background: #EFEAEA;
+}
+.container .sidebar h2{
+	margin-top: 10px;
+	padding: 10px;
+	border-left: solid 5px #D0D0D0;
+}
+.container .sidebar form {
+	margin-left: 300px;
+}
+.container .sidebar form div {
+	margin: 5px auto;
+}
+.container .sidebar form div .text-input {
+	width: 160px;
+	height: 15px;
+}
+.container .sidebar form div p {
+	margin: 0 0 0 125px;
+	color: #C0C0C0;
+}
+.container .sidebar form div label{
+	display: inline-block;
+	margin-right: 10px;
+	width: 110px;
+	text-align:right; 
+}
+.container .sidebar form div textarea {
+	width: 80%;
+	height: 100px;
+}
+.container .sidebar form .submit {
+	margin-left: -300px;
+    width: 128%;
+    height: 40px;
+    background: #297EFF;
+    color: #fff	;
+    border-radius: 10px;
+}
+
+.container .footer {
+	width: 100%;
+	height: 80px;
+	line-height: 80px;
+	text-align: center;
+	background: #000;
+	color: #fff;
+}

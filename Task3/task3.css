@@ -1,0 +1,56 @@
+
+html,
+img {
+	margin: 0;
+	padding: 0;
+}
+body,
+div {
+	margin: 0;
+	padding: 20px;
+}
+
+.container {
+	background: #eee;
+	border: #999;
+	overflow: hidden; /*清除浮动，让父元素知道子元素的高度，也是溢出隐藏*/
+}
+
+.container .teamname {
+	float: left;
+	width: 160px;
+	background: #685656;
+}
+.container .teamname .tlogo {
+	float: left;
+	padding: 0;
+}
+.container .teamname .tlogo img {
+	width: 80px;
+	height: 80px;
+}
+.container .teamname .name {
+	margin-left: 80px;
+	padding: 0 0 0 10px;
+	text-align: center;
+}
+
+.container .instructor {
+	margin: 0 140px 0 220px;
+	width: auto;
+	background: #fff;
+	/*word-break: break-all;*/
+	word-wrap: break-word;
+}
+
+.container .logo {
+	/*margin-left: -120px;*/
+	float: right;
+	width: 80px;
+	background: #7A5C5C;
+}
+.container .logo img {
+	width: 80px;
+	height: 80px;
+	padding: 10px 0;
+}
