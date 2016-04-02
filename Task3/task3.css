@@ -54,3 +54,100 @@ div {
 	height: 80px;
 	padding: 10px 0;
 }
+
+
+
+/* 两边固定，中间自适应 */
+
+
+/* 第一种，float: left; + float: right; + margin: 0 160px;*/
+/*
+.float {
+	margin-top: 20px;
+	height: 140px;
+	background: #000;
+ }
+.float .left {
+	float: left;
+	width: 100px;
+	height: 100px;
+	background: #fff;
+}
+.float .right {
+	float: right;
+	width: 100px;
+	height: 100px;
+	background: #fff
+}
+.float .center {
+	margin: 0 160px;  /*100+20+20+20，自身宽100px + 自身的padding 20*2 + 距离20px */
+/*	width: auto;
+	height: 100px;
+	background: #eee;
+}*/
+
+/* 第二种 最外面的div先position: relative;让里面的div以父元素为基准
+		  position: absolute;top:;left:; + position: absolute;top:;right:; + margin:0 160px;
+*/
+/*.float {
+	position: relative;
+	margin-top: 20px;
+	height: 140px;
+	background: #000;
+ }
+.float .left {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	width: 100px;
+	height: 100px;
+	background: #fff;
+}
+.float .right {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	width: 100px;
+	height: 100px;
+	background: #fff
+}
+.float .center {
+	margin: 0 160px;
+	height: 100px;
+	background: #eee;
+}*/
+
+/* 第三种  最外面的div先position: relative;让里面的div以父元素为基准
+		  position: absolute;top:;left:; + position: absolute;top:;right:; 
+		  + position: absolute;top:;left:;right:; */
+.float {
+	position: relative;
+	margin-top: 20px;
+	height: 140px;
+	background: #000;
+ }
+.float .left {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	width: 100px;
+	height: 100px;
+	background: #fff;
+}
+.float .right {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	width: 100px;
+	height: 100px;
+	background: #fff
+}
+.float .center {
+	/*margin: 0 160px;*/
+	position: absolute;
+	top: 20px;
+	left: 180px; /*因为是以父元素为基准，所以在160px的基础上加了父元素的padding*/
+	right: 180px;
+	height: 100px;
+	background: #eee;
+}
