@@ -4,6 +4,7 @@ header,footer,
 section,
 div,
 ul,li,
+h1,h4,
 a,
 h1,
 p {
@@ -17,6 +18,9 @@ header,section,footer {
 }
 ul {
 	list-style: none;
+}
+button {
+	border: none;
 }
 
 .nav {
@@ -83,7 +87,6 @@ ul {
 	width: 300px;
 	height: 50px;
 	background: #CC0F21;
-    border: none;
     border-radius: 5px;
     font-size: 1.5em;
     color: #fff;
@@ -100,9 +103,20 @@ ul {
 .benefit ul li i {
 	display: block;
     margin: 50px auto 10px;
-	width: 100px;
-	height: 100px;
-	background: #eee;
+	width: 70px;
+	height: 70px;
+}
+.benefit ul li:nth-child(1) i{
+	background: url(images/benefit.jpg) no-repeat left 0 top 0;
+}
+.benefit ul li:nth-child(2) i{
+	background: url(images/benefit.jpg) no-repeat left 30% top 0;
+}
+.benefit ul li:nth-child(3) i{
+	background: url(images/benefit.jpg) no-repeat left 65% top 0;
+}
+.benefit ul li:nth-child(4) i{
+	background: url(images/benefit.jpg) no-repeat left 100% top 0;
 }
 .benefit ul li p {
 	padding: 0 50px;
@@ -122,6 +136,88 @@ ul {
 	height: 100px;
 }
 
+.city {
+	height: 340px;
+	background: url(images/city.jpg) no-repeat;
+	background-size: cover;
+	color: #fff;
+}
+.city h1 {
+	padding: 50px 0 20px 0;
+}
+.city select,.city button{
+	margin: 50px 20px 0 0;
+	width: 200px;
+	height: 30px;
+}
+.city select:hover {
+	border: none;
+}
+.city select:focus {
+	border: 2px solid red;
+}
+.city select option {
+	border: none;
+}
+.city button {
+	background: #B32C2C;
+	color: #fff;	
+	font-size: 1em;
+}
+
+.activity {
+	height: 600px;
+	background: #eee;
+}
+.activity ul {
+	padding: 100px;
+}
+.activity li {
+	float: left;
+	margin: 0 2.5%;
+	width: 20%;
+    line-height: 30px;
+}
+.activity li img {
+	width: 220px;
+	height: 340px;
+}
+.activity li:nth-child(2n+1) {
+	position: relative;
+}
+.activity li:nth-child(2n+1) img {
+	position: absolute;
+	top: 70px;
+	left: 0;
+}
+
+.time {
+	height: 565px;
+	background: url(images/time.jpg) no-repeat;
+	background-size: cover;
+}
+
+.article {
+	height: 520px;
+	background: url(images/article.jpg) no-repeat;
+	background-size: cover;
+}
+.article .article1,.article2 {
+	width: 430px;
+	height: 100%;
+}
+.article .article1 {
+	background: red;
+}
+
+.volunteer {
+	height: 700px;
+}
+
+.contact {
+	height: 350px;
+	background: #777;
+}
 
 footer {
 	height: 80px;
