@@ -1,0 +1,100 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <base href="<%=basePath%>">
+    
+    <title>My JSP 'index.jsp' starting page</title>
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	<!--
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
+	<style>
+		#circle {
+			margin-top: 100px;
+			width: 400px;
+			height: 400px;
+			line-height: 400px;
+			background: #000;
+			border-radius: 50%;
+			color: #fff;
+			word-wrap: break-word;
+			font-size: 1.2em;
+		}
+		.click {
+			position: absolute;
+			top: 20px;
+			margin-left: -100px;
+			width: 80px;
+			height: 40px;
+			background: #E081DD;
+			color: #fff;
+			border: none;
+			border-radius: 10px;
+			font-size: 1em;
+		}
+		.click1{
+			margin-left: 0;
+		}
+	
+	</style>
+  </head>
+  
+  <body>
+  	<center>
+	    <div id="circle">
+	    	把鼠标移到这个圆内可暂停，离开则继续。
+	    </div>
+	    <input type="button" value="点击暂停" name='suspend' class="click" id="suspend"> 
+	    <input type="button" value="点击继续" name='continue' class="click click1" id="continue">
+    </center>
+  
+  <script type="text/javascript">
+  	var color = ['red','yellow','green','pink','brown','orange','gray'];
+  	var circle = document.getElementById('circle');
+  	var control = document.getElementById('suspend'); //点击暂停
+  	var conti = document.getElementById('continue'); //点击继续
+    var col = 0;
+	function changeColor(){
+  		/* 以数组的方法实现颜色变化 */
+		circle.setAttribute('style','background:'+color[col]+';');
+		console.log(circle.style.background);
+		console.log(col);
+		col++;
+  		if(col > 6){
+  			col = 0;
+  		}
+  		
+  	
+  	    /* 随机实现颜色变化 */
+  	//	var rand = 	Math.round(Math.random()*1000000);
+  	//	circle.setAttribute('style','background: #'+rand+';');
+  	//	console.log(circle.style.background);
+  		
+  		
+  	}
+  	var time = setInterval('changeColor()',500);
+	
+	/* 用两个按钮控制暂停继续 */
+/*	control.onclick = function(){
+		clearInterval(time);
+	};
+	conti.onclick = function(){
+		time = setInterval('changeColor()',500);
+	};*/
+	
+	
+	/* 通过移动鼠标控制暂停与继续 */
+	circle.onmousemove = function(){
+		clearInterval(time);
+	}
+	circle.onmouseout = function(){
+		time = setInterval('changeColor()',500);
+	}
+  </script>
+  </body>
+</html>
