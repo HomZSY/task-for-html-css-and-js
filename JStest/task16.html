@@ -1,0 +1,124 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IFE JavaScript Task 04</title>
+    <style>
+      .input {
+        width: 500px;
+        height: 100px;
+      }
+      .input input {
+        margin: 5px;
+      }
+      .input button {
+        margin: 8px 0 0 200px;
+      }
+      #aqi-table td {
+        text-align: center;
+      }
+    </style>
+  </head>
+<body>
+
+  <div class="input">
+    <label>&nbsp;&nbsp;城市名称：&nbsp;&nbsp;<input id="aqi-city-input" type="text"></label><br>
+    <label>空气质量指数：<input id="aqi-value-input" type="text"></label><br>
+    <button id="add-btn">确认添加</button>
+  </div>
+  <table id="aqi-table">
+  <!-- 
+    <tr>
+      <td>城市</td><td>空气质量</td><td>操作</td>
+    </tr>
+    <tr>
+      <td>北京</td><td>90</td><td><button>删除</button></td>
+    </tr>
+    <tr>
+      <td>北京</td><td>90</td><td><button>删除</button></td>
+    </tr>
+   -->
+  </table>
+  <script type="text/javascript">
+    /**
+     * aqiData，存储用户输入的空气指数数据
+     * 示例格式：
+     * aqiData = {
+     *    "北京": 90,
+     *    "上海": 40
+     * };
+     */
+    var city = document.getElementById('aqi-city-input');
+    var value = document.getElementById('aqi-value-input');
+    var aqiData = {};  //这里有点不懂为什么要用对象？ 我只会用数组
+    var aqiList = Array();
+    var table = document.getElementById('aqi-table');
+    var spell = /^[A-Za-z\u4e00-\u9fa5]+$/;
+    var num = /^[0-9]+$/;
+    /* 用正则去除输入左右两端的空格 */
+    function trim_all(str) {
+      return str.replace(/(^\s*)|(\s*$)/g, '');
+    }
+    /**
+     * 从用户输入中获取数据，向aqiData中增加一条数据
+     * 然后渲染aqi-list列表，增加新增的数据
+     */
+    function addAqiData() {
+      // console.log(num.test(trim_all(value.value)));
+      city.value = trim_all(city.value);
+      value.value = trim_all(value.value);
+      if(spell.test(city.value) && num.test(value.value)){ //正则判断
+        aqiList.push([city.value,value.value]);
+      }else{
+        alert('城市的名称一定要为中英文字符，空气质量一定为整数哟~且不能为空');
+      }
+    }
+
+    /**
+     * 渲染aqi-table表格
+     */
+    function renderAqiList() {
+      // console.log(aqiList.length);
+      if(aqiList.length === 1){ //只有第一次添加的时候才会添加这一条
+        table.innerHTML = '<tr><td>城市</td><td>空气质量</td><td>操作</td></tr>';
+      }
+      table.innerHTML += '<tr><td>'+aqiList[aqiList.length-1][0]+'</td><td>'+aqiList[aqiList.length-1][1]+'</td><td><button onclick="delBtnHandle(this)">删除</button></td></tr>';  
+      
+    }
+
+    /**
+     * 点击add-btn时的处理逻辑
+     * 获取用户输入，更新数据，并进行页面呈现的更新
+     */
+    function addBtnHandle() {
+      addAqiData();
+      renderAqiList();
+    }
+
+    /**
+     * 点击各个删除按钮的时候的处理逻辑
+     * 获取哪个城市数据被删，删除数据，更新表格显示
+     */
+
+     function delBtnHandle(r) {
+      var i=r.parentNode.parentNode.rowIndex;
+      table.deleteRow(i);
+    }
+
+    function init() {
+
+      // 在这下面给add-btn绑定一个点击事件，点击时触发addBtnHandle函数
+      var add = document.getElementById('add-btn');
+      // var delete1 = document.getElementsByName('delete');
+      add.onclick = function(){
+        addBtnHandle();
+      }
+
+      // 想办法给aqi-table中的所有删除按钮绑定事件，触发delBtnHandle函数
+
+    }
+
+    init();
+  </script>
+</body>
+</html>
