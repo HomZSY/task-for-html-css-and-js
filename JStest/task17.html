@@ -16,7 +16,7 @@
   <fieldset>
     <legend>请选择查看的城市：</legend>
     <select id="city-select">
-      <option>北京</option>
+      <!-- <option>北京</option> -->
     </select>
   </fieldset>
 
@@ -109,6 +109,10 @@
      * 初始化日、周、月的radio事件，当点击时，调用函数graTimeChange
      */
     function initGraTimeForm() {
+      var radios = document.getElementsByName('gra-time');
+      for(var i=0; i<radios.length; i++){
+        console.log(radios[i].value);
+      }
 
     }
 
@@ -117,9 +121,14 @@
      */
     function initCitySelector() {
       // 读取aqiSourceData中的城市，然后设置id为city-select的下拉列表中的选项
-
+      var select = document.getElementById('city-select');
+      for(i in aqiSourceData){
+        select.innerHTML += '<option>'+i+'</option>';
+      }
       // 给select设置事件，当选项发生变化时调用函数citySelectChange
-
+      select.onchange = function(){
+        citySelectChange(select.selectedIndex);
+      }
     }
 
     /**
