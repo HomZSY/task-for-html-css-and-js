@@ -17,12 +17,12 @@
         width: 50%;
       }
      
-      .content {
+      .day .content {
         position: absolute;
         bottom: 0;
         left: 0;
       }
-      .content .box {
+      .day .content .box {
         position: relative;
         display: inline-block;
         width: 20px;
@@ -47,11 +47,31 @@
   </fieldset>
 
   <div class="aqi-chart-wrap">
-    <div class="bg-line">
+    <div class="day">
+      <div class="bg-line">
         
+      </div>
+      <div class="content">
+        <span class="box"></span>
+      </div>
     </div>
-    <div class="content">
-      <span class="box"></span>
+
+    <div class="month">
+      <div class="bg-line">
+        
+      </div>
+      <div class="content">
+        <span class="box"></span>
+      </div>
+    </div>
+
+    <div class="year">
+      <div class="bg-line">
+        
+      </div>
+      <div class="content">
+        <span class="box"></span>
+      </div>
     </div>
   </div>
   <script type="text/javascript">
