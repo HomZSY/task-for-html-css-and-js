@@ -3,28 +3,26 @@
   <head>
     <meta charset="utf-8">
     <title>IFE JavaScript Task 05</title>
-    <script src="task.js"></script>
     <style>
       .aqi-chart-wrap {
         position: relative;
-        top: 100px;
+        top: 50px;
       }
       .bg-line{
+        position: relative;
+        height: 200px;
+        width: 50%;
         border: solid #999;
         border-width: 0 1px 1px 1px;
-        border-right-color: #eee;
         overflow: hidden;
-        width: 50%;
       }
-     
       .day .content {
-        position: absolute;
-        bottom: 0;
+        position: relative;
+        bottom: 20px; /*为盒子的高度*/
         left: 0;
       }
       .day .content .box {
-        position: relative;
-        display: inline-block;
+        display: block;
         width: 20px;
         height: 20px;
         background: #000;
@@ -42,46 +40,23 @@
   <fieldset>
     <legend>请选择查看的城市：</legend>
     <select id="city-select">
-      <!-- <option>北京</option> -->
+     <!--  <option>北京</option> -->
     </select>
   </fieldset>
 
   <div class="aqi-chart-wrap">
-    <div class="day">
-      <div class="bg-line">
-        
-      </div>
-      <div class="content">
-        <span class="box"></span>
-      </div>
-    </div>
-
-    <div class="month">
-      <div class="bg-line">
-        
-      </div>
-      <div class="content">
-        <span class="box"></span>
-      </div>
-    </div>
-
-    <div class="year">
-      <div class="bg-line">
-        
-      </div>
-      <div class="content">
-        <span class="box"></span>
-      </div>
-    </div>
+    <canvas id="aqi-chart-wrap">
+    </canvas>
+    
   </div>
   <script type="text/javascript">
     /* 数据格式演示
     var aqiSourceData = {
-      "北京": {
-        "2016-01-01": 10,
-        "2016-01-02": 10,
-        "2016-01-03": 10,
-        "2016-01-04": 10
+      "北京":  {
+        "2016-01-01":  10,
+        "2016-01-02":  10,
+        "2016-01-03":  10,
+        "2016-01-04":  10
       }
     };
     */
@@ -90,9 +65,9 @@
     function getDateStr(dat) {
       var y = dat.getFullYear();
       var m = dat.getMonth() + 1;
-      m = m < 10 ? '0' + m : m;
+      m = m < 10 ? '0' + m :  m;
       var d = dat.getDate();
-      d = d < 10 ? '0' + d : d;
+      d = d < 10 ? '0' + d :  d;
       return y + '-' + m + '-' + d;
     }
     function randomBuildData(seed) {
@@ -108,31 +83,58 @@
     }
 
     var aqiSourceData = {
-      "北京": randomBuildData(500),
-      "上海": randomBuildData(300),
-      "广州": randomBuildData(200),
-      "深圳": randomBuildData(100),
-      "成都": randomBuildData(300),
-      "西安": randomBuildData(500),
-      "福州": randomBuildData(100),
-      "厦门": randomBuildData(100),
-      "沈阳": randomBuildData(500)
+      "北京":  randomBuildData(500),
+      "上海":  randomBuildData(300),
+      "广州":  randomBuildData(200),
+      "深圳":  randomBuildData(100),
+      "成都":  randomBuildData(300),
+      "西安":  randomBuildData(500),
+      "福州":  randomBuildData(100),
+      "厦门":  randomBuildData(100),
+      "沈阳":  randomBuildData(500)
     };
+    console.log(aqiSourceData);
 
     // 用于渲染图表的数据
     var chartData = {};
 
     // 记录当前页面的表单选项
     var pageState = {
-      nowSelectCity: -1,
-      nowGraTime: "day"
+      nowSelectCity:  -1,
+      nowGraTime:  "day"
     }
 
     /**
      * 渲染图表
      */
     function renderChart() {
+      var graph = document.getElementById('aqi-chart-wrap');
+      var cav = graph.getContext('2d');
+      var cw=parseInt(graph.width);
+      var ch=parseInt(graph.height);
 
+      var basex=0;
+      var basey=30;
+
+      var gx=cw*0.8;
+      var gy=ch*0.8;
+      //第一步:绘制背景
+      cav.fillStyle="#eeeeee";
+      cav.fillRect(basex,basey,gx,gy);
+      //第二步:下边我们获取我们表头当中的年份信息
+    
+
+      //第五步:绘制我们的坐标轴
+      cav.beginPath();
+      cav.fillStyle="black";
+      cav.lineWidth=2;
+      //移动到我们图中所谓的坐标原点
+      cav.moveTo(0,0);
+      //画纵轴
+      cav.lineTo(0,gy+basey);
+      //画横轴
+      cav.lineTo(cw,gy+basey);
+      cav.stroke();
     }
 
     /**
@@ -140,7 +142,6 @@
      */
     function graTimeChange() {
       // 确定是否选项发生了变化 
-
       // 设置对应数据
 
       // 调用图表渲染函数
@@ -149,12 +150,13 @@
     /**
      * select发生变化时的处理函数
      */
-    function citySelectChange() {
+    function citySelectChange(i) {
       // 确定是否选项发生了变化 
-
+      // console.log(i);
       // 设置对应数据
 
       // 调用图表渲染函数
+      renderChart();
     }
 
     /**
@@ -165,7 +167,10 @@
       for(var i=0; i<radios.length; i++){
         console.log(radios[i].value);
       }
-
+      // console.log(radios);
+      // radios.onclick = function(){
+      //   graTimeChange();
+      // }
     }
 
     /**
@@ -188,6 +193,7 @@
      */
     function initAqiChartData() {
       // 将原始的源数据处理成图表需要的数据格式
+      
       // 处理好的数据存到 chartData 中
     }
 
