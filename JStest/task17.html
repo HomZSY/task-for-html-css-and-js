@@ -8,25 +8,6 @@
         position: relative;
         top: 50px;
       }
-      .bg-line{
-        position: relative;
-        height: 200px;
-        width: 50%;
-        border: solid #999;
-        border-width: 0 1px 1px 1px;
-        overflow: hidden;
-      }
-      .day .content {
-        position: relative;
-        bottom: 20px; /*为盒子的高度*/
-        left: 0;
-      }
-      .day .content .box {
-        display: block;
-        width: 20px;
-        height: 20px;
-        background: #000;
-      }
     </style>
   </head>
 <body>
@@ -45,7 +26,7 @@
   </fieldset>
 
   <div class="aqi-chart-wrap">
-    <canvas id="aqi-chart-wrap">
+    <canvas id="aqi-chart-wrap" width="1000">
     </canvas>
     
   </div>
@@ -115,20 +96,32 @@
       var graph = document.getElementById('aqi-chart-wrap');
       var cav = graph.getContext('2d');
       var cw=parseInt(graph.width);
+      // var cw = 800;
+
       var ch=parseInt(graph.height);
       var basex=0;
       var basey=30;
       var gx=cw*0.8;
       var gy=ch*0.8;
+
       //第一步:绘制背景
-      cav.fillStyle="#eeeeee";
+      cav.fillStyle="#eee";
       cav.fillRect(basex,basey,gx,gy);
-      //第二步:下边我们获取我们表头当中的年份信息
-    
+
+      //第二步:找出我们数据当中的最大的值，以便我们进行坐标的分配
+      var max_value=0;
+      var titleData = []; //柱状图中的数据
+      for(var item in chartData){
+        titleData.push(chartData[item]);
+        if(chartData[item] > max_value){
+          max_value = chartData[item];
+        }
+      }
+      // console.log(chartData);
+      // console.log(max_value);
 
       //第五步:绘制我们的坐标轴
       cav.beginPath();
-      cav.fillStyle="black";
       cav.lineWidth=2;
       //移动到我们图中所谓的坐标原点
       cav.moveTo(0,0);
@@ -137,6 +130,20 @@
       //画横轴
       cav.lineTo(cw,gy+basey);
       cav.stroke();
+
+      //第六步:开始进行绘制，绘制标题的同时绘制数据
+
+      var each_len=gy*0.8/max_value;//首先计算一下我们每个数值所代表的像素长度
+      
+      var each_room=gx*0.8/titleData.length;//计算横轴上每个方块所占的长度
+      console.log(each_room);
+      //开始绘制
+
+      for(var h=0; h<titleData.length; h++){
+        console.log(each_room*h,gy+basey-titleData[h]*each_len,7,titleData[h]*each_len);
+        cav.fillRect(each_room*h+7,gy+basey-titleData[h]*each_len,7,titleData[h]*each_len);
+        cav.fillStyle = '#'+Math.round(Math.random()*1000000);
+      }
     }
 
     /**
