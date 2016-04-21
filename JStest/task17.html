@@ -110,7 +110,8 @@
      * 渲染图表
      */
     function renderChart() {
-      // console.log(pageState);
+      // console.log(chartData);
+      // console.log(pageState.nowGraTime);
       var graph = document.getElementById('aqi-chart-wrap');
       var cav = graph.getContext('2d');
       var cw=parseInt(graph.width);
@@ -141,17 +142,14 @@
     /**
      * 日、周、月的radio事件点击时的处理函数
      */
-    function graTimeChange() {
+    function graTimeChange(i) {
       // 确定是否选项发生了变化 
       // 设置对应数据
-      for(var i=0; i<radios.length; i++){
         if(radios[i].checked && radios[i].value != pageState.nowGraTime){
           pageState.nowGraTime = radios[i].value;
-          // console.log(pageState.nowGraTime);
+          console.log(pageState.nowGraTime);
+          initAqiChartData();
         }
-      }
-      // 调用图表渲染函数
-      renderChart();
     }
 
     /**
@@ -160,8 +158,7 @@
     function citySelectChange() {
       // 确定是否选项发生了变化 
       // 设置对应数据
-      // 调用图表渲染函数
-      renderChart();
+      initAqiChartData();
     }
 
     /**
@@ -169,9 +166,11 @@
      */
     function initGraTimeForm() {
       for(var i=0; i<radios.length; i++){
-        radios[i].onclick = function(){
-          graTimeChange();
-        }
+        (function(i){
+            radios[i].onclick = function(){
+              graTimeChange(i); //把当前选中的传给graTimeChange
+            }
+        })(i);
       }
     }
 
@@ -205,11 +204,13 @@
           char = aqiSourceData[city]; //char存的是当前选中城市的模拟数据
         }
       }
-      switch(pageState.nowGraTime){ //判断当前选中的是日、月、年
-        case 'day':
+      switch(pageState.nowGraTime){ //判断当前选中的是日、月、年,每次都要将chartData初始化为空
+        case 'day': 
+            chartData = {};
             chartData = char;
             break;
         case 'week':
+            chartData = {};
             for(date1 in char){
               i++;
               sum += char[date1];
@@ -227,6 +228,7 @@
             }
             break;
         case 'month':
+            chartData = {};
             for(date2 in char){
               var year2 = new Date(date2).getFullYear();
               i++;
@@ -246,7 +248,7 @@
             break;
       }
       // 处理好的数据存到 chartData 中
-      console.log(chartData);
+      // console.log(chartData);
       // 调用图表渲染函数
       renderChart();
     }
