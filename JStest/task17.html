@@ -4,9 +4,13 @@
     <meta charset="utf-8">
     <title>IFE JavaScript Task 05</title>
     <style>
-      .aqi-chart-wrap {
+      #aqi-chart-wrap {
         position: relative;
-        top: 50px;
+        top: 50px; 
+      }
+      #aqi-chart-wrap .detail {
+        display: inline-block;
+        border: solid 1px #fff;
       }
     </style>
   </head>
@@ -25,11 +29,12 @@
     </select>
   </fieldset>
 
-  <div class="aqi-chart-wrap">
-    <canvas id="aqi-chart-wrap" width="1000">
-    </canvas>
+  <div class="aqi-chart-wrap" id="aqi-chart-wrap">
+    <!-- <canvas id="aqi-chart-wrap" width="1000">
+    </canvas> -->
     
   </div>
+  <div id="detail"></div>
   <script type="text/javascript">
     /* 数据格式演示
     var aqiSourceData = {
@@ -87,6 +92,8 @@
     var radios = document.getElementsByName('gra-time');
     var citySelect = document.getElementById('city-select');
 
+    var graph = document.getElementById('aqi-chart-wrap');
+    var detail = document.getElementById('detail');
     // 随机产生颜色
     var getRandomColor = function(){
       return  '#' +
@@ -97,19 +104,48 @@
 
     }
 
+    function hoverDetail(date,data){
+
+    }
+    function hideDetail(e){
+
+    }
+
+    /**
+     * 渲染图表
+     */
+    function renderChart(){
+      var gy = 500;
+      var gx = 1000;
+      var titleData = [];
+      var titleDate = [];
+      var max_value = 0;
+      for(var item in chartData){
+        titleData.push(chartData[item]);
+        titleDate.push(item);
+        if(chartData[item] > max_value){
+          max_value = chartData[item];
+        }
+      }
+      var each_len=gy*0.2/max_value;//首先计算一下我们每个数值所代表的像素长度
+      var each_room=gx*0.8/titleData.length;//计算横轴上每个方块所占的长度
+      graph.innerHTML = '';
+      for(var h=0; h<titleData.length; h++){
+        graph.innerHTML += '<span class="detail" style="background: '+getRandomColor()+'; width: '+each_room+'px; height: '+each_len*titleData[h]+'px; display: inline-block;" onmouseover="hoverDetail(\''+titleDate[h]+'\','+titleData[h]+')" onmouseout="hideDetail('+titleDate[h]+','+titleData[h]+')"></span>'; //因为要传字符串过去，所以要加\'转义
+      }
+    }
 
 
     /**
      * 渲染图表
      */
+    /*
+      用js 来画柱状图，但是缺点是无法获取到canvas画出来的图像
     function renderChart() {
-      // console.log(chartData);
-      // console.log(pageState.nowGraTime);
+
       var graph = document.getElementById('aqi-chart-wrap');
       var cav = graph.getContext('2d');
       var cw=parseInt(graph.width);
-      // var cw = 800;
-
       var ch=parseInt(graph.height);
       var basex=0;
       var basey=30;
@@ -129,8 +165,6 @@
           max_value = chartData[item];
         }
       }
-      // console.log(chartData);
-      // console.log(max_value);
 
       //第五步:绘制我们的坐标轴
       cav.beginPath();
@@ -154,7 +188,7 @@
         cav.fillStyle = getRandomColor();
         cav.fillRect(each_room*h+7,gy+basey-titleData[h]*each_len,each_room-1,titleData[h]*each_len);
       }
-    }
+    }*/
 
     /**
      * 日、周、月的radio事件点击时的处理函数
