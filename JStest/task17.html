@@ -12,6 +12,11 @@
         display: inline-block;
         border: solid 1px #fff;
       }
+      #detail {
+        position: relative;
+        top: 50px;
+        color: red;
+      }
     </style>
   </head>
 <body>
@@ -105,10 +110,7 @@
     }
 
     function hoverDetail(date,data){
-
-    }
-    function hideDetail(e){
-
+      detail.innerHTML = '<p>'+date+' '+citySelect.value+'的空气粒度为：'+data+'</p>';
     }
 
     /**
@@ -130,8 +132,9 @@
       var each_len=gy*0.2/max_value;//首先计算一下我们每个数值所代表的像素长度
       var each_room=gx*0.8/titleData.length;//计算横轴上每个方块所占的长度
       graph.innerHTML = '';
+      console.log()
       for(var h=0; h<titleData.length; h++){
-        graph.innerHTML += '<span class="detail" style="background: '+getRandomColor()+'; width: '+each_room+'px; height: '+each_len*titleData[h]+'px; display: inline-block;" onmouseover="hoverDetail(\''+titleDate[h]+'\','+titleData[h]+')" onmouseout="hideDetail('+titleDate[h]+','+titleData[h]+')"></span>'; //因为要传字符串过去，所以要加\'转义
+        graph.innerHTML += '<span class="detail" style="background: '+getRandomColor()+'; width: '+each_room+'px; height: '+each_len*titleData[h]+'px; display: inline-block;" onmouseover="hoverDetail(\''+titleDate[h]+'\','+titleData[h]+')"></span>'; //因为要传字符串过去，所以要加\'转义
       }
     }
 
