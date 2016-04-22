@@ -109,6 +109,7 @@
 
     }
 
+    // 鼠标移到上方显示具体内容
     function hoverDetail(date,data){
       detail.innerHTML = '<p>'+date+' '+citySelect.value+'的空气粒度为：'+data+'</p>';
     }
@@ -116,6 +117,7 @@
     /**
      * 渲染图表
      */
+     // 直接用span实现柱状图
     function renderChart(){
       var gy = 500;
       var gx = 1000;
@@ -201,7 +203,7 @@
       // 设置对应数据
         if(radios[i].checked && radios[i].value != pageState.nowGraTime){
           pageState.nowGraTime = radios[i].value;
-          console.log(pageState.nowGraTime);
+          // console.log(pageState.nowGraTime);
           initAqiChartData();
         }
     }
@@ -233,7 +235,7 @@
      */
     function initCitySelector() {
       // 读取aqiSourceData中的城市，然后设置id为city-select的下拉列表中的选项
-      for(i in aqiSourceData){
+      for(var i in aqiSourceData){
         citySelect.innerHTML += '<option>'+i+'</option>';
       }
       // 给select设置事件，当选项发生变化时调用函数citySelectChange
