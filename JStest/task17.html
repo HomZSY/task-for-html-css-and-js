@@ -87,6 +87,18 @@
     var radios = document.getElementsByName('gra-time');
     var citySelect = document.getElementById('city-select');
 
+    // 随机产生颜色
+    var getRandomColor = function(){
+      return  '#' +
+        (function(color){
+        return (color +=  '0123456789abcdf'[Math.floor(Math.random()*15)])
+          && (color.length == 6) ?  color : arguments.callee(color);
+      })('');
+
+    }
+
+
+
     /**
      * 渲染图表
      */
@@ -136,13 +148,11 @@
       var each_len=gy*0.8/max_value;//首先计算一下我们每个数值所代表的像素长度
       
       var each_room=gx*0.8/titleData.length;//计算横轴上每个方块所占的长度
-      console.log(each_room);
+      // console.log(each_room);
       //开始绘制
-
       for(var h=0; h<titleData.length; h++){
-        console.log(each_room*h,gy+basey-titleData[h]*each_len,7,titleData[h]*each_len);
-        cav.fillRect(each_room*h+7,gy+basey-titleData[h]*each_len,7,titleData[h]*each_len);
-        cav.fillStyle = '#'+Math.round(Math.random()*1000000);
+        cav.fillStyle = getRandomColor();
+        cav.fillRect(each_room*h+7,gy+basey-titleData[h]*each_len,each_room-1,titleData[h]*each_len);
       }
     }
 
